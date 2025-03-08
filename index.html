@@ -152,12 +152,14 @@
         document.addEventListener("DOMContentLoaded", function () {
     let btnNo = document.getElementById("btnNo");
 
-
+    // Xử lý cả hover và chạm trên điện thoại
     btnNo.addEventListener("mouseover", moveButton);
     btnNo.addEventListener("touchstart", function (event) {
-        event.preventDefault(); 
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của cảm ứng
         moveButton();
     });
+});
+
         function moveButton() {
             let button = document.getElementById("btnNo");
             let maxX = window.innerWidth / 2 - 100;
