@@ -136,7 +136,7 @@
         <p class="message-box">Ngày 8/3 vui vẻ nhé! 😊</p>
         <div class="buttons">
             <button class="btn-custom btn-yes" onclick="startAnimation()">Dạ 💖</button>
-            <button class="btn-custom btn-no" id="btnNo" onmouseover="moveButton()">Không 😜</button>
+            <button class="btn-custom btn-no" id="btnNo">Không 😜</button>
         </div>
     </div>
 
@@ -149,6 +149,15 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let btnNo = document.getElementById("btnNo");
+
+
+    btnNo.addEventListener("mouseover", moveButton);
+    btnNo.addEventListener("touchstart", function (event) {
+        event.preventDefault(); 
+        moveButton();
+    });
         function moveButton() {
             let button = document.getElementById("btnNo");
             let maxX = window.innerWidth / 2 - 100;
@@ -156,6 +165,8 @@
 
             let newX = (Math.random() * maxX) - maxX / 2;
             let newY = (Math.random() * maxY) - maxY / 2;
+
+            button.style.position = "absolute";
 
             button.style.transform = `translate(${newX}px, ${newY}px)`;
         }
