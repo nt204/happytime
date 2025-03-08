@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Woman's Day</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #000;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+            color: white;
+            padding: 20px;
+        }
+
+        .message-box {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px; /* Tăng khoảng cách giữa dòng chữ và các nút */
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            padding-top: 10px; /* Tạo khoảng cách giữa dòng chữ và các nút */
+        }
+
+        .btn-custom {
+            font-size: 20px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        .btn-yes {
+            background-color: #ff4081;
+            color: white;
+            left: 0;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-no {
+            background-color: #ccc;
+            color: black;
+            right: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .chuc-mung {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            max-width: 90%;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                         0 0 20px rgba(255, 165, 0, 0.3),
+                         0 0 30px rgba(255, 140, 0, 0.3);
+            padding: 10px;
+        }
+
+        .gif-container {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gif-container img {
+            width: 100px;
+            max-width: 15vw;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive cho điện thoại */
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .btn-custom {
+                position: relative;
+                width: 80%;
+                text-align: center;
+            }
+
+            .btn-no {
+                margin-top: 10px;
+            }
+
+            .chuc-mung {
+                font-size: 5vw;
+                top: 15%;
+            }
+
+            .gif-container {
+                bottom: 5vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="question-box">
+        <p class="message-box">Ngày 8/3 vui vẻ nhé! 😊</p>
+        <div class="buttons">
+            <button class="btn-custom btn-yes" onclick="startAnimation()">Dạ 💖</button>
+            <button class="btn-custom btn-no" id="btnNo" onmouseover="moveButton()">Không 😜</button>
+        </div>
+    </div>
+
+    <audio id="music" src="musicc.mp3" loop></audio>
+
+    <div id="chuc-mung-container" class="chuc-mung hidden"></div>
+
+    <div class="gif-container hidden" id="gif-box">
+        <img src="cat.gif" alt="GIF dễ thương">
+    </div>
+
+    <script>
+        function moveButton() {
+            let button = document.getElementById("btnNo");
+            let maxX = window.innerWidth / 2 - 100;
+            let maxY = window.innerHeight / 2 - 100;
+
+            let newX = (Math.random() * maxX) - maxX / 2;
+            let newY = (Math.random() * maxY) - maxY / 2;
+
+            button.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+
+        function startAnimation() {
+            let music = document.getElementById('music');
+            music.loop = true;
+            music.play();
+            $("#question-box").fadeOut(500, function() {
+                $("#chuc-mung-container").fadeIn(500);
+                showMessage();
+            });
+        }
+
+        function showMessage() {
+            $("#gif-box").fadeIn(500);
+            let message = "Happy Women's Day! 🎉\n\nKhông chúc em giàu có, chỉ chúc em bình yên.\nKhông chúc em lộng lẫy, chỉ chúc em không muộn phiền.";
+            let container = document.getElementById("chuc-mung-container");
+            let index = 0;
+
+            function showNextLetter() {
+                if (index < message.length) {
+                    let char = message[index];
+                    if (char === "\n") {
+                        container.innerHTML += "<br>";
+                    } else {
+                        container.innerHTML += char;
+                    }
+                    index++;
+                    setTimeout(showNextLetter, 80);
+                }
+            }
+            showNextLetter();
+        }
+    </script>
+
+</body>
+</html>
